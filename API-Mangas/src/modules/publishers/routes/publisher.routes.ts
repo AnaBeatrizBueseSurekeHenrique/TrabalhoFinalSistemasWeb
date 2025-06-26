@@ -1,9 +1,22 @@
 import { Router } from "express";
 import PublishersController from "../controller/PublishersController";
 import { celebrate, Joi, Segments } from "celebrate";
+import PublisherMangasController from "../controller/PublisherMangasController";
 
 const publishersRouter = Router();
 const publisherController = new PublishersController();
+const publisherMangaController = new PublisherMangasController();
+
+publishersRouter.get('/mangas/:id', celebrate({
+    [Segments.PARAMS] : {id: Joi.string().uuid().required()}
+}),    
+    async(req,res,next) =>{
+    try{
+        await publisherMangaController.show(req,res,next);
+    }catch(err){
+        next(err);
+    }
+});
 
 publishersRouter.get('/', async(req,res,next) =>{
     try{
@@ -42,7 +55,7 @@ publishersRouter.post('/', celebrate({
 publishersRouter.put('/:id', celebrate({
     [Segments.PARAMS] : {id: Joi.string().uuid().required()},
     [Segments.BODY] : {
-        name: Joi.string().required(),
+        name: Joi.string().optional(),
         description: Joi.string().optional(),
         country_of_origin: Joi.string().required(),
         headquarters: Joi.string().required(),
@@ -57,6 +70,7 @@ publishersRouter.put('/:id', celebrate({
         next(err);
     }
 });
+
 publishersRouter.delete('/:id', celebrate({
     [Segments.PARAMS] : {id: Joi.string().uuid().required()}
 }),    
