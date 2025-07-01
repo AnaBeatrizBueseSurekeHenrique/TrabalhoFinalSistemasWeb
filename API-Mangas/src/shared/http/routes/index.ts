@@ -7,10 +7,12 @@ import usersRouter from "@modules/users/routes/users.routes";
 import { Router } from "express";
 
 const routes = Router();
+
 routes.use('/publishers', publishersRouter);
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
 routes.use('/password', passwordRouter);
 routes.use('/profile', profileRouter);
 routes.use('/mangas', mangasRouter)
+
 export default routes;

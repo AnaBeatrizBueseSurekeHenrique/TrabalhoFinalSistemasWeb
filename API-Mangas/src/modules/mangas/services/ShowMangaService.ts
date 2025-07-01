@@ -10,9 +10,11 @@ export default class ShowMangaService{
     public async execute({id}: IRequest) : Promise<Manga>{
         const mangasRepository = getCustomRepository(MangasRepository);
         const manga = await mangasRepository.findById(id);
+
         if(!manga){
-            throw new AppError('Publisher not found!');
+            throw new AppError('Manga not found!');
         }
+
         return manga;
     }
 }

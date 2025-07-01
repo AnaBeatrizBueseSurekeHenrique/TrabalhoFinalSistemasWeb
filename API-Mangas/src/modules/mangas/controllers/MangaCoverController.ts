@@ -6,7 +6,7 @@ export default class MangaCoverController{
         try{
             const uploadMangaCover = new UploadMangaCoverService();
             const {id} = request.params;
-            const manga = uploadMangaCover.execute({manga_id : id, coverFileName: request.file?.filename as string});
+            const manga = await uploadMangaCover.execute({id : id, coverFileName: request.file?.filename as string});
             return response.json(manga);
          }catch(err){
             next(err);

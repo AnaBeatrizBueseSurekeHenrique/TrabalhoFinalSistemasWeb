@@ -5,6 +5,7 @@ import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Up
 export default class Publisher{
     @PrimaryGeneratedColumn('uuid')
     id:string;
+    
     @OneToMany(()=>Manga, manga=>manga.publisher)
     mangas: Manga[];
 

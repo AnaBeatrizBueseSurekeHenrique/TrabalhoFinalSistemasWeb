@@ -7,8 +7,10 @@ export default class ProfileController{
         const showProfile = new ShowProfileService();
         const user_id = request.user.id;
         const user = await showProfile.execute({user_id});
+        
         return response.json(user);
     }
+
     public async update(request: Request, response: Response, next: NextFunction) : Promise<Response>{
         const user_id = request.user.id;
         const {name,email,password,old_password} = request.body;

@@ -3,7 +3,6 @@ import Manga from "../typeorm/entities/Manga";
 import MangasRepository from "../typeorm/repositories/MangasRepository";
 import AppError from "@shared/errors/AppError";
 import PublishersRepository from "@modules/publishers/typeorm/repositories/PublishersRepository";
-import Publisher from "@modules/publishers/typeorm/entities/Publisher";
 
 interface IRequest {
   title: string;
@@ -13,26 +12,24 @@ interface IRequest {
   publisher_name: string;
 }
 
-
 export default class CreateMangaService {
-  public async execute({
-    title,
-    author_name,
-    target_demographic,
-    quantity_volumes,
-    publisher_name,
-  }: IRequest): Promise<Manga> {
+  public async execute({title,author_name,target_demographic,quantity_volumes,publisher_name,}: IRequest): Promise<Manga> {
     const mangasRepository = getCustomRepository(MangasRepository);
     const titleExists = await mangasRepository.findByTitle(title);
+
     if (titleExists) {
       throw new AppError("A manga with this name already exists!");
     }
+
     const publisherRepository = getCustomRepository(PublishersRepository);
     const existsPublisher = await publisherRepository.findByName(publisher_name);
+
     if (existsPublisher == undefined) {
       throw new AppError("This publishers doesnt exist!");
     }
-
+    if(quantity_volumes <= 0){
+      throw new AppError("The Manga number can't be lower than 1!")
+    }
     const manga = await mangasRepository.createManga({
       title,
       author_name,
@@ -40,6 +37,7 @@ export default class CreateMangaService {
       quantity_volumes,
       publisher: existsPublisher,
     });
+    
     return manga;
   }
 }

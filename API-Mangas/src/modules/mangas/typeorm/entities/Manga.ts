@@ -5,12 +5,16 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGenerat
 export default class Manga{
     @PrimaryGeneratedColumn('uuid')
     id:string;
+
     @Column()
     title: string;
+
     @Column()
     author_name: string;
+
     @Column()
     target_demographic: string;
+
     @Column('int')
     quantity_volumes: number;
     
@@ -20,8 +24,10 @@ export default class Manga{
      
     @Column()
     cover: string;
+
     @CreateDateColumn()
     created_at: Date;
+    
     @UpdateDateColumn()
     updated_at: Date;
 }

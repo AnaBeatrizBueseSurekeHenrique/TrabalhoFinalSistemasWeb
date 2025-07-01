@@ -10,14 +10,13 @@ const mangasRouter = Router();
 const mangasController = new MangasController();
 const mangaCoverController = new MangaCoverController();
 const upload = multer(uploadConfig);
+
 mangasRouter.use(isAuthenticated);
 
-mangasRouter.patch(
-  "/cover/:id",
-  upload.single("cover"),
-  celebrate({
+mangasRouter.patch("/cover/:id", upload.single("cover"),celebrate({
     [Segments.PARAMS]: { id: Joi.string().uuid().required() },
   }),
+  
   async (req, res, next) => {
     try {
       await mangaCoverController.update(req, res, next);
@@ -35,9 +34,7 @@ mangasRouter.get("/", async (req, res, next) => {
   }
 });
 
-mangasRouter.get(
-  "/:id",
-  celebrate({
+mangasRouter.get("/:id", celebrate({
     [Segments.PARAMS]: { id: Joi.string().uuid().required() },
   }),
   async (req, res, next) => {
@@ -49,9 +46,7 @@ mangasRouter.get(
   }
 );
 
-mangasRouter.post(
-  "/",
-  celebrate({
+mangasRouter.post("/", celebrate({
     [Segments.BODY]: {
       title: Joi.string().required(),
       author_name: Joi.string().required(),
@@ -69,9 +64,7 @@ mangasRouter.post(
   }
 );
 
-mangasRouter.put(
-  "/:id",
-  celebrate({
+mangasRouter.put( "/:id", celebrate({
     [Segments.PARAMS]: { id: Joi.string().uuid().required() },
     [Segments.BODY]: {
       title: Joi.string().optional(),
@@ -91,9 +84,7 @@ mangasRouter.put(
   }
 );
 
-mangasRouter.delete(
-  "/:id",
-  celebrate({
+mangasRouter.delete("/:id", celebrate({
     [Segments.PARAMS]: { id: Joi.string().uuid().required() },
   }),
   async (req, res, next) => {

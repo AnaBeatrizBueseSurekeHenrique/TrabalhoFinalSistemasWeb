@@ -2,10 +2,14 @@ import { Router } from "express";
 import PublishersController from "../controller/PublishersController";
 import { celebrate, Joi, Segments } from "celebrate";
 import PublisherMangasController from "../controller/PublisherMangasController";
+import isAuthenticated from "@shared/http/middlewares/isAuthenticated";
 
 const publishersRouter = Router();
 const publisherController = new PublishersController();
 const publisherMangaController = new PublisherMangasController();
+
+
+publishersRouter.use(isAuthenticated);
 
 publishersRouter.get('/mangas/:id', celebrate({
     [Segments.PARAMS] : {id: Joi.string().uuid().required()}

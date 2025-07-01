@@ -21,6 +21,5 @@ export default class PublishersRepository extends Repository<Publisher>{
             where: {id}, relations:['mangas']
         })
         return publisher;
-    }
-    
+    } 
 }

@@ -19,9 +19,9 @@ interface IPublisher{
 
 @EntityRepository(Manga)
 export default class MangasRepository extends Repository<Manga>{
+    
     public async findById(id: string) : Promise<Manga | undefined>{
         const manga = await this.findOne(id, {relations:['publisher']});
-        console.log("MANGA:", manga);
         return manga;
     }
     public async findByTitle(title: string) : Promise<Manga | undefined>{

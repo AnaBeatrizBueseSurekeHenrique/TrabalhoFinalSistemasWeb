@@ -17,13 +17,13 @@ export default class SendForgotPasswordEmailService{
     const usersTokensRespository = getCustomRepository(UserTokensRepository);
     const forgotPasswordTemplate = path.resolve(__dirname, '..', 'views', 'forgot_password.hbs');
     const user = await usersRepository.findByEmail(email);
+    
     if(!user){
       throw new AppError('User does not exists.');
     }
 
     const {token} = await usersTokensRespository.generate(user.id);
 
-    //futuramente vamos implementar o método de enviar isso para o email.
     console.log(token);
      await EtherealMail.sendMail({
       to: {name: user.name, email: user.email}, 

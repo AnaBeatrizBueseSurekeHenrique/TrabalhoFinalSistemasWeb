@@ -15,6 +15,7 @@ profileRouter.get('/', async(req,res,next) =>{
         next(err);
     }
 })
+
 profileRouter.put('/', celebrate({
     [Segments.BODY] : {
         name: Joi.string().required(),
