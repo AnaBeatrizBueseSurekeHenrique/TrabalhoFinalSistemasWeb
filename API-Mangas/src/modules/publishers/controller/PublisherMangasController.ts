@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import ShowPublisherMangaService from "../services/ShowPublisherMangas";
+import ShowPublisherMangaService from "../services/ShowPublisherMangasService";
 
 export default class PublisherMangasController{
 
